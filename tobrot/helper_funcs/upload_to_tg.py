@@ -86,13 +86,13 @@ async def upload_to_tg(
     caption_str += "<code>"
     caption_str += base_file_name
     caption_str += "</code>"
-    if CHANNEL_URL is not None:
-        caption_str += "\n\nJoin and Support: "
-        caption_str += "<a href='"
-        caption_str += f"{CHANNEL_URL}"
-        caption_str += "'>"
-        caption_str += f"{CHANNEL_URL}"
-        caption_str += "</a>"
+   #if CHANNEL_URL is not None:
+      #  caption_str += "\n\nJoin and Support: "
+      #  caption_str += "<a href='"
+      #  caption_str += f"{CHANNEL_URL}"
+      #  caption_str += "'>"
+      #  caption_str += f"{CHANNEL_URL}"
+      #  caption_str += "</a>"
     if os.path.isdir(local_file_name):
         directory_contents = os.listdir(local_file_name)
         directory_contents.sort()
@@ -101,7 +101,7 @@ async def upload_to_tg(
         new_m_esg = message
         if not message.photo:
             new_m_esg = await message.reply_text(
-                "Found {} files".format(len(directory_contents)),
+                "**Found** `{}` **Files 📡**".format(len(directory_contents)),
                 quote=True
                 # reply_to_message_id=message.message_id
             )
@@ -120,8 +120,8 @@ async def upload_to_tg(
             d_f_s = humanbytes(os.path.getsize(local_file_name))
             i_m_s_g = await message.reply_text(
                 "Telegram does not support uploading this file.\n"
-                f"Detected File Size: {d_f_s} 😡\n"
-                "\n🤖 trying to split the files 🌝🌝🌚"
+                f"**File Size:** {d_f_s} 😡\n"
+                "\n__🤖 Trying To Split The Files 🌝🌝🌚__"
             )
             splitted_dir = await split_large_files(local_file_name)
             totlaa_sleif = os.listdir(splitted_dir)
@@ -130,9 +130,9 @@ async def upload_to_tg(
             LOGGER.info(totlaa_sleif)
             ba_se_file_name = os.path.basename(local_file_name)
             await i_m_s_g.edit_text(
-                f"Detected File Size: {d_f_s} 😡\n"
-                f"<code>{ba_se_file_name}</code> splitted into {number_of_files} files.\n"
-                "trying to upload to Telegram, now ..."
+                f"**File Size :** {d_f_s} \n"
+                f"<code>{ba_se_file_name}</code> Has Been Splitted Into {number_of_files} Files.\n"
+                "**Now Trying To Upload To Telegram ...**"
             )
             for le_file in totlaa_sleif:
                 # recursion: will this FAIL somewhere?
@@ -293,7 +293,7 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
     for key in iter(user_specific_config):
         if key == from_user:
             dyna_user_config_upload_as_doc=user_specific_config[key].upload_as_doc
-            LOGGER.info(f'Found dyanamic config for user {from_user}')
+            LOGGER.info(f'Found Dyanamic Config For User {from_user}')
     #
     if UPLOAD_AS_DOC.upper() == 'TRUE' or dyna_user_config_upload_as_doc:
         thumb_image_path = None
@@ -316,7 +316,7 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
         message_for_progress_display = message
         if not edit_media:
             message_for_progress_display = await message.reply_text(
-                "starting upload of {}".format(os.path.basename(local_file_name)))
+                "**Starting Upload 📤**\n\n**FileName :** `{}`".format(os.path.basename(local_file_name)))
         sent_message = await message.reply_document(
             document=local_file_name,
             # quote=True,
@@ -340,7 +340,7 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
             message_for_progress_display = message
             if not edit_media:
                 message_for_progress_display = await message.reply_text(
-                    "starting upload of {}".format(os.path.basename(local_file_name))
+                    "**Starting Upload 📤**\n\n**FileName :** `{}`".format(os.path.basename(local_file_name))
                 )
             if local_file_name.upper().endswith(("MKV", "MP4", "WEBM")):
                 metadata = extractMetadata(createParser(local_file_name))
