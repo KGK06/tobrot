@@ -454,7 +454,7 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 except:
                     pass
                 #
-                prog = pyprog.ProgressBar(" ", " ", total=100, bar_length=15, complete_symbol="●", not_complete_symbol="○", wrap_bar_prefix=" 〖", wrap_bar_suffix="〗 ", progress_explain="", progress_loc=pyprog.ProgressBar.PROGRESS_LOC_END)
+                prog = pyprog.ProgressBar(" ", " ", total=100, bar_length=15, complete_symbol="▓", not_complete_symbol="░", wrap_bar_prefix=" 〖", wrap_bar_suffix="〗 ", progress_explain="", progress_loc=pyprog.ProgressBar.PROGRESS_LOC_END)
                 
                 old_stdout = sys.stdout
                 new_stdout = io.StringIO()
@@ -473,9 +473,9 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 i = 0
                 i = int(i)
                 STR = int(os.environ.get("STR", 30))
-                msg = f"╔═════ ࿇📥 <b>𝘿𝙤𝙬𝙣𝙡𝙤𝙖𝙙𝙞𝙣𝙜</b>\n"
-                msg += "┃"+"\n┣"+f"{prg}\n" +"┃"
-                msg += f"\n┣<b>𝙁𝙞𝙡𝙚𝙣𝙖𝙢𝙚</b> 📚: "
+                msg = f"<b>╭──────── ⌊  📥  Downloading  ⌉ </b>\n"
+                msg += "<b>│</b>"+"\n<b>├</b>"+f"<b>〚 {prg} 〛</b>\n" +"<b>│</b>"
+                msg += f"\n<b>├ FileName</b> : "
                 while(len(downloading_dir_name)>0):
                     st = downloading_dir_name[0:STR]
                     if(i==0):
@@ -483,23 +483,23 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                         downloading_dir_name = downloading_dir_name[STR-15:len(downloading_dir_name)]
                         i = 1
                     else:
-                        msg += f"\n┃{st}"
+                        msg += f"\n<b>│</b>{st}"
                         downloading_dir_name = downloading_dir_name[STR:len(downloading_dir_name)]
 			
-                msg += f"\n┣<b>𝙎𝙥𝙚𝙚𝙙</b> 🚀 :  <code>{file.download_speed_string()} </code>"
-                msg += f"\n┣<b>𝙏𝙤𝙩𝙖𝙡 𝙨𝙞𝙯𝙚</b> 🗂 :  <code>{file.total_length_string()}</code>"
+                msg += f"\n<b>├ Speed</b> :  <code>{file.download_speed_string()} </code>"
+                msg += f"\n<b>├ Total Size</b> :  <code>{file.total_length_string()}</code>"
 
                 if is_file is None :
-                   msg += f"\n┣<b>𝘾𝙤𝙣𝙣𝙚𝙘𝙩𝙞𝙤𝙣𝙨</b> 📬 :  <code>{file.connections}</code>"
+                   msg += f"\n<b>├ Connections</b> :  <code>{file.connections}</code>"
                 else :
-                   msg += f"\n┣<b>𝗜𝗻𝗳𝗼</b> 📄 : <code>[ P : {file.connections} || S : {file.num_seeders} ]</code>"
+                   msg += f"\n<b>├ Info</b> : <b>[ P : {file.connections} || S : {file.num_seeders} ]</b>"
 
                 # msg += f"\n<b>Status</b> : <code>{file.status}</code>"
-                msg += f"\n┣<b>𝗘𝗧𝗔</b> ⏳ :  <code>{file.eta_string()}</code>" +"\n╔╦══• •✠•❀  ❀•✠• •══╦╗"
-                msg += "\n ⟰⚡️ᴜsɪɴɢ ᴇɴɢɪɴᴇ ᴀʀɪᴀ2 ⟱  \n╚╩══• •✠•❀  ❀•✠• •══╩╝"
+                msg += f"\n<b>├ ETA</b> :  <code>{file.eta_string()}</code>" +"\n\n<b>│</b>\n<b>│   ╔╦══• •✠•❀  ❀•✠• •══╦╗</b>"
+                msg += "\n<b>╰─⟰⚡️ᴜsɪɴɢ ᴇɴɢɪɴᴇ ᴀʀɪᴀ2 ⟱ </b>\n<b>      ╚╩══• •✠•❀  ❀•✠• •══╩╝</b>"
                 inline_keyboard = []
                 ikeyboard = []
-                ikeyboard.append(InlineKeyboardButton("𝗖𝗮𝗻𝗰𝗹𝗲 ❌", callback_data=(f"cancel {gid}").encode("UTF-8")))
+                ikeyboard.append(InlineKeyboardButton("", callback_data=(f"cancel {gid}").encode("UTF-8")))
                 inline_keyboard.append(ikeyboard)
                 reply_markup = InlineKeyboardMarkup(inline_keyboard)
                 #msg += reply_markup
@@ -516,7 +516,7 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
             await check_progress_for_dl(aria2, gid, event, previous_message)
         else:
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-            await event.edit(f"File Downloaded Successfully: `{file.name}`")
+            await event.edit(f"**File Downloaded Successfully ✅**\n\n**FileName :** `{file.name}`")
             return True
     except Exception as e:
         LOGGER.info(str(e))
