@@ -168,7 +168,7 @@ async def exec_message_f(client, message):
 
 async def upload_document_f(client, message):
     imsegd = await message.reply_text(
-        "processing ..."
+        "**Processing..🔃🔃**"
     )
     if message.from_user.id in AUTH_CHANNEL:
         if " " in message.text:
@@ -253,9 +253,9 @@ async def upload_log_file(client, message):
 
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
-    await message.reply_text("File will be uploaded as Document")
+    await message.reply_text("**File will be uploaded as Document 📁**")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
-    await message.reply_text("File will be uploaded as Video")
+    await message.reply_text("**File will be uploaded as Streamable 🎞️**")
