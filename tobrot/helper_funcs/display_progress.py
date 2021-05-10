@@ -44,14 +44,14 @@ async def progress_for_pyrogram(
             ''.join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]),
             round(percentage, 2))
         cpu = "{psutil.cpu_percent()}%"
-        tmp = progress +"<b>│</b>" + "\n\n<b>├ Uploaded : {0}</b>\n<b>├ Total : {1}</b>\n</b>├ Speed : {2}</b>\n<b>├ ETA : {3}</b>".format(
+        tmp = progress +"\n<b>│</b>" + "\n<b>├ 🪤 Uploaded  : : {0}</b>\n<b>├ 🪤 Total Size : {1}</b>\n<b>├ 🪤 Speed : {2}</b>\n<b>├ 🪤 ETA : {3}</b>".format(
             humanbytes(current),
             humanbytes(total),
             humanbytes(speed),
             # elapsed_time if elapsed_time != '' else "0 s",
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
-        tmp += "\n<b>│</b>"+"\n<b>│   ╔╦═══• •✠•❀  ❀•✠• •═══╦╗</b>\n<b>╰─⟰  ᴜsɪɴɢ ᴇɴɢɪɴᴇ ᴘʏʀᴏɢʀᴀᴍ  ⟱ </b>\n<b>      ╚╩═══• •✠•❀  ❀•✠• •═══╩╝</b>"
+        tmp += "\n<b>│</b>"+"\n<b>╰── ⌊ ⚡️ Using Engine : Pyrogram ⌉</b>"
         try:
             if not message.photo:
                 await message.edit_text(
